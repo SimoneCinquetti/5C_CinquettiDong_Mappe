@@ -1,13 +1,11 @@
 /*
 Struttura dizionario
-
 {
     "etichetta" : [
         "tipo",
         [valore1, valore2, valore3]
     ]
 }
-
 */
 
 const createModalForm = (parentElement) => {
@@ -40,7 +38,7 @@ return {
             }
         }
 
-        document.querySelector("#prenotare").onclick = () => {
+        document.querySelector("#cercare").onclick = () => {
             const result = Object.keys(data).map((name) => {
                 return document.querySelector("#" + name).value;
             });
