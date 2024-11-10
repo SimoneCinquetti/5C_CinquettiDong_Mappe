@@ -29,7 +29,7 @@ return {
         }
 
         html += `
-            <button type="button" id="cercare" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cerca">
+            <button type="button" id="cercare" class="btn btn-primary">
                 Cerca
             </button>
         `;
