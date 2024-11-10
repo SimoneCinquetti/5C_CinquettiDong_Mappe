@@ -1,19 +1,32 @@
 import { createForm } from "./components/form.js";
-import { recuperoCoordinate } from "./libreriaMappa/recuperaMappa.js";
+import { gestoreCoordinate } from "./libreriaMappa/gestioneMappa.js";
 
 const box = createForm(document.getElementById("myForm"));
-const cercatore= recuperoCoordinate("pk.f326f5668cf5027333107c0a38b8b71b")
 
-box.setLabels({
-    "Indirizzo" : "text",
-});
+fetch("./config.json").then(r => r.json()).then((configuration) => {
+    const cercatore= gestoreCoordinate(configuration.keyCache)
 
-box.onsubmit((labels) => {
-    console.log(labels);
-});
+    let map = L.map('map').setView([45.27, 9.11], 8);
 
-box.render();
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
 
-cercatore.cercaCoordinate("Via Rovereto 14 Milano")
+    box.setLabels({
+        "Indirizzo" : "text",
+    });
+    
+    box.onsubmit((labels) => {
+        cercatore.aggiungiIndirizzo(labels[0])
+        setTimeout(()=>{
+            cercatore.elencoIndirizzi().forEach((place) => {
+                const marker = L.marker(place.coords).addTo(map);
+                marker.bindPopup(`<b>${place.name}</b>`);
+             });
+        },500)
+    });
+    
+    box.render();
 
-let map = L.map('map').setView([51.505, -0.09], 13);
+})
