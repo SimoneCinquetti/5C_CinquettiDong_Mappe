@@ -1,16 +1,13 @@
-import { createModalForm } from "./components/modalForm.js";
+import { createForm } from "./components/form.js";
 
-const box = createModalForm(document.getElementById("modal-bd"));
+const box = createForm(document.getElementById("myForm"));
 
 box.setLabels({
-    "Indirizzo" : [
-        "text", 
-        null
-    ]
+    "Indirizzo" : "text",
 });
 
-box.onsubmit((values) => {
-    
+box.onsubmit((labels) => {
+    console.log(labels);
 });
 
 box.render();
