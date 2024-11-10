@@ -28,7 +28,11 @@ return {
                      </div>`;
         }
 
-        html += `<button type="button" id="cercare" class="btn btn-primary">Cerca</button>`;
+        html += `
+            <button type="button" id="cercare" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cerca">
+                Cerca
+            </button>
+        `;
 
         parentElement.innerHTML = html;
 
